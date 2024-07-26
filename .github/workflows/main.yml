@@ -1,4 +1,4 @@
-name: Git Clone Workflow
+name: Git Clone and Scan Workflow
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-  clone_repository:
+  scan_repository:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout main repository
@@ -17,6 +17,16 @@ jobs:
       run: |
         git clone https://github.com/jai3747/test.git
 
-    - name: List contents of cloned repository
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+
+    - name: Install Semgrep
       run: |
-        ls -R test
+        python -m pip install --upgrade pip
+        pip install semgrep
+
+    - name: Run Semgrep
+      run: |
+        semgrep --config=auto test
