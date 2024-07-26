@@ -53,6 +53,7 @@ jobs:
 
       - name: Run Snyk Test
         run: |
+          cd test  # Ensure we're in the directory where the target files are located
           snyk test --json > snyk-results.json || (cat snyk-results.json && exit 1)
 
       - name: Upload Snyk results
