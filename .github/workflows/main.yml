@@ -13,12 +13,10 @@ jobs:
     - name: Checkout main repository
       uses: actions/checkout@v2
 
-
     - name: Clone external repository
       run: |
         git clone https://github.com/jai3747/test.git
 
-     
     - name: List contents of cloned repository
       run: |
-        ls -R external-repo
+        ls -R test
