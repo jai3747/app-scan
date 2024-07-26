@@ -1,4 +1,4 @@
-name: Git Clone and Scan Workflow
+name: Git Clone, Scan, and Security Check Workflow
 
 on:
   push:
@@ -37,3 +37,19 @@ jobs:
       with:
         name: semgrep-results
         path: semgrep-results.json
+
+    - name: Install Snyk CLI
+      run: |
+        npm install -g snyk
+
+    - name: Run Snyk Test
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}  # Ensure you add your Snyk token as a GitHub secret
+      run: |
+        snyk test --json > snyk-results.json
+
+    - name: Upload Snyk results
+      uses: actions/upload-artifact@v3
+      with:
+        name: snyk-results
+        path: snyk-results.json
