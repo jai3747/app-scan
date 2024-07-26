@@ -1,0 +1,24 @@
+name: Git Clone Workflow
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  clone_repository:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout main repository
+      uses: actions/checkout@v2
+
+
+    - name: Clone external repository
+      run: |
+        git clone https://github.com/jai3747/test.git
+
+     
+    - name: List contents of cloned repository
+      run: |
+        ls -R external-repo
