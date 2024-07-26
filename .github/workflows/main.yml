@@ -16,7 +16,11 @@ jobs:
       - name: Clone external repository
         run: |
           git clone https://github.com/jai3747/test.git
+
+      - name: List files in cloned repository
+        run: |
           cd test
+          ls -R
 
       - name: Set up Python
         uses: actions/setup-python@v4
