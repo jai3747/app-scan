@@ -16,6 +16,7 @@ jobs:
     - name: Clone external repository
       run: |
         git clone https://github.com/jai3747/test.git
+        cd test  # Change directory to the cloned repo if necessary
 
     - name: Set up Python
       uses: actions/setup-python@v4
@@ -29,7 +30,7 @@ jobs:
 
     - name: Run Semgrep
       run: |
-        semgrep --config=auto test --json > semgrep-results.json
+        semgrep --config=auto . --json > semgrep-results.json  # Save results in the current directory
 
     - name: Upload Semgrep results
       uses: actions/upload-artifact@v3
